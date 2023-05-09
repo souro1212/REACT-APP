@@ -1,0 +1,58 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  height: 60px;
+  padding: 0 20px;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar-toggle {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 24px;
+  width: 30px;
+}
+
+.navbar-toggle span {
+  background-color: #fff;
+  height: 3px;
+  width: 100%;
+  transition: all 0.2s ease-out;
+}
+
+.navbar-toggle.active span:first-child {
+  transform: rotate(45deg) translate(5px, 6px);
+}
+
+.navbar-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggle.active span:last-child {
+  transform: rotate(-45deg) translate(5px, -6px);
+}
+
+.navbar-menu {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background-color: #333;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.navbar-menu.active {
+  display: flex;
+}
