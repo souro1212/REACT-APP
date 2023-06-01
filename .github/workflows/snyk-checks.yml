@@ -14,7 +14,6 @@ jobs:
           command: code test --sarif-file-output=snyk.sarif
       - name: echo sarif file
         run: | 
-             ls
              echo snyk.sarif 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
