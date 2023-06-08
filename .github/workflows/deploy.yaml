@@ -46,5 +46,5 @@ jobs:
       env:
         user_name: 'souro1212'
         user_email: 'souro1212@gmail.com'
-        github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         repository: ${{ github.repository }}
