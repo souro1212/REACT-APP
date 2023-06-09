@@ -21,7 +21,10 @@ jobs:
       - name: Installing react-scripts
         run: npm install react-scripts --save
       - name: Building project
-        run: npm run build
+        run: | 
+         npm run build
+         cd build
+         zip -r ../build.zip .
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy to Lambda
