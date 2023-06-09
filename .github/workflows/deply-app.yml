@@ -18,6 +18,7 @@ jobs:
       - name: Installing react-scripts
         run: npm install react-scripts --save
       - name: Building project
-        run: |
-          sudo npm run build
+        run: npm run build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
