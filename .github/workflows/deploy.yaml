@@ -1,27 +1,31 @@
-name: Deploy to GitHub Pages
-
+# Name of workflow as seen in Github actions tab
+name: dev-build-and-deploy
+# Run workflow only on push to dev branch
 on:
   push:
     branches:
-      - main # replace with the name of your deployment branch
-
+      - main
 jobs:
-  build-and-deploy:
+  # To build the project
+  build-tambola:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
+      - name: Checking out code
+        uses: actions/checkout@v3
+      - name: Installing Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
-          cache: 'npm'
-      - name: Install dependencies
+          node-version: "16"
+      - name: Installing dependencies
         run: npm install
-      - name: Build and deploy
-        run: |
-          npm run build
-          git config --global user.email "souradip1212@gmail.com"
-          git config --global user.name "Souradip Ghosh"
-          git add .
-          git commit -m "Deploy to GitHub Pages"
-          git push --force --quiet "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref }}
+      - name: Building project
+        run: npm run build
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-1
+
+      - name: Deploy to S3 bucket
+        run: aws s3 sync ./dist/ s3://dev-react-app --delete
