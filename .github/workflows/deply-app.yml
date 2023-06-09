@@ -1,0 +1,35 @@
+# Name of workflow as seen in Github actions tab
+name: dev-build-and-deploy
+# Run workflow only on push to dev branch
+on: push
+jobs:
+  # To build the project
+  build-react-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out code
+        uses: actions/checkout@v3
+      - name: Installing Node.js
+        uses: actions/setup-node@v3
+        with:
+         node-version: 16.x
+         cache: npm
+      - name: Installing dependencies
+        run: npm install
+      - name: Install dependencies
+        run: npm ci
+      - name: Installing react-scripts
+        run: npm install react-scripts --save
+      - name: Building project
+        run: | 
+         npm run build
+         cd build
+         zip -r ../build.zip .
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.PAT }}
+          publish_dir: ./build
+
