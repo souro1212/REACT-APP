@@ -12,9 +12,12 @@ jobs:
       - name: Installing Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+         node-version: 16.x
+         cache: npm
       - name: Installing dependencies
         run: npm install
+      - name: Install dependencies
+        run: npm ci
       - name: Installing react-scripts
         run: npm install react-scripts --save
       - name: Building project
