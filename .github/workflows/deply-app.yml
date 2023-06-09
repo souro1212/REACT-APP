@@ -4,7 +4,7 @@ name: dev-build-and-deploy
 on: push
 jobs:
   # To build the project
-  build-tambola:
+  build-react-app:
     runs-on: ubuntu-latest
     steps:
       - name: Checking out code
@@ -16,5 +16,5 @@ jobs:
       - name: Installing dependencies
         run: npm install
       - name: Building project
-        run: npm run build
+        run: sudo npm run build
 
